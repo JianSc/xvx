@@ -1,0 +1,279 @@
+{layout name="../../view/shared/home" /}
+<style>
+    @import "/www/resfile/css/site.css";
+
+    ul, li {
+        list-style: none;
+    }
+
+    section {
+        padding: 0 !important;
+    }
+
+    section .mod18 {
+        width: 598px;
+        position: relative;
+    }
+
+    section .mod18 .btn {
+        position: absolute;
+        cursor: pointer;
+        z-index: 99;
+        font-size: 50px;
+        font-weight: bold;
+    }
+
+    section .mod18 .prev {
+        left: 10px;
+        background: url('/www/image/prevBtn.png') no-repeat;
+    }
+
+    section .mod18 #prevTop, section .mod18 #nextTop {
+        top: 250px;
+        width: 32px;
+        height: 48px;
+    }
+
+    section .mod18 #prev, section .mod18 #next {
+        top: 450px;
+        width: 10px;
+        height: 16px;
+        display: none;
+    }
+
+    section .mod18 #prevTop {
+        background: url('/www/image/prevBtnTop.png') 0 0 no-repeat;
+    }
+
+    section .mod18 #nextTop {
+        background: url('/www/image/nextBtnTop.png') 0 0 no-repeat;
+    }
+
+    section .mod18 .next {
+        right: 10px;
+        background: url('/www/image/nextBtn.png') no-repeat;
+    }
+
+    section .mod18 li {
+        float: left;
+    }
+
+    section .mod18 .cf li {
+        position: relative;
+        color: #fff;
+    }
+
+    section .mod18 .cf {
+        display: flex;
+        flex-flow: row;
+        flex-wrap: nowrap;
+    }
+
+    section .mod18 .cf a {
+        display: block;
+        width: 526px;
+        height: 377px;
+        position: absolute;
+        color: #fff;
+    }
+
+    section .mod18 .cf li span {
+        display: block;
+        width: 486px;
+        position: absolute;
+        left: 75px;
+        bottom: 0;
+        padding: 10px 20px;
+        line-height: 22px;
+        text-align: left;
+        background: rgba(0, 0, 0, 0.6);
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr="#60000000", endColorstr="#60000000");
+    }
+
+    section .mod18 .picBox {
+        width: 526px;
+        height: 490px;
+        padding-left: 75px;
+        padding-right: 76px;
+        position: relative;
+        overflow: hidden;
+        padding-top: 40px;
+    }
+
+    section .mod18 .picBox ul {
+        height: 377px;
+        position: absolute;
+        left: 0;
+    }
+
+    section .mod18 .picBox li {
+        padding-left: 75px;
+        padding-right: 1px;
+        width: 526px;
+        height: 377px;
+    }
+
+    section .mod18 .listBox {
+        width: 598px;
+        height: 100px;
+        margin: 0 auto;
+        position: relative;
+        padding-top: 15px;
+        overflow: hidden;
+    }
+
+    section .mod18 .listBox ul {
+        height: 88px;
+        position: absolute;
+        padding-left: 12px;
+    }
+
+    section .mod18 .listBox li {
+        width: 127px;
+        height: 77px;
+        cursor: pointer;
+        position: relative;
+        padding: 5px 0 0 0;
+        opacity: 1;
+    }
+
+    section .mod18 .listBox li i {
+        display: none;
+    }
+
+    section .mod18 .listBox li a {
+        display: block;
+        width: 108px;
+        height: 77px;
+        background-color: #cfa972;
+        opacity: 0.6;
+    }
+
+    section .mod18 .listBox img {
+        background-color: #cfa972;
+        opacity: 0.6;
+    }
+
+    section .mod18 .listBox .on a {
+        opacity: 1;
+    }
+
+    section .mod18 .listBox .on img {
+        opacity: 1;
+    }
+
+    section .mod18 .listBox .on i {
+        display: block;
+    }
+
+    section .listBox img {
+        width: 100%
+    }
+
+    section .box {
+        width: 50%;
+    }
+
+    section .top {
+        margin-top: 100px;
+        height: 510px;
+        display: flex;
+        flex-flow: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+    }
+
+    section .box .title {
+        margin-top: 50px;
+        color: #aaaaaa;
+    }
+
+    section .box .shopbtn {
+        display: block;
+        background: linear-gradient(135deg, #000 15px, #ed0400 0);
+        padding: 8px 31px;
+        margin-bottom: 8px;
+        font-size: 16px;
+        color: #FFFFFF;
+        width: 190px;
+        cursor: pointer;
+        margin-top: 80px;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    section .box .shopbtn:hover {
+        background: linear-gradient(135deg, #000 15px, #b75347 0);
+    }
+
+    text {
+        color: #dcdcdc;
+    }
+
+    text .txt {
+        padding: 20px 0;
+    }
+
+    text .txt img {
+        width: 100%;
+    }
+</style>
+<section id="inner-headline">
+    <div class="container">
+        <div class="top">
+            <div class="box">
+                <ul>
+                    <li class="title"><h2><?php echo $db['title'] ?></h2></li>
+                    <li>
+                        <a class="shopbtn" target="_blank" href="<?php echo $db['url'] ?>">Buy On Amazon</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="box" style="margin-top: -100px;">
+                <div class="mod18">
+                    <span id="prev" class="btn prev"></span>
+                    <span id="next" class="btn next"></span>
+                    <span id="prevTop" class="btn prev"></span>
+                    <span id="nextTop" class="btn next"></span>
+                    <div id="picBox" class="picBox">
+                        <ul class="cf">
+                            <?php
+                            foreach ($imgarr as $img) {
+                                echo '<li><a href="#"><img src="/www/upload/goods/' . $img['name'] . '"></a></li>';
+                            }
+                            ?>
+                        </ul>
+                    </div>
+
+                    <div id="listBox" class="listBox">
+                        <ul class="cf">
+                            <?php
+                            $i = 1;
+                            foreach ($imgarr as $img) {
+                                if ($i == 1) {
+                                    echo '<li class="on">';
+                                } else {
+                                    echo '<li>';
+                                }
+                                echo '<i class="arr2"></i>';
+                                echo '<a href="#">';
+                                echo '<img src="/www/upload/goods/' . $img['name'] . '">';
+                                echo '</a></li>';
+                            }
+                            ?>
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+                </div
+            </div>
+        </div>
+    </div>
+</section>
+
+<text>
+    <div class="container txt">
+        <?php echo $db['val']; ?>
+    </div>
+</text>
+
+<script type="text/javascript" src="/www/resfile/scripts/jqueryPhoto.js"></script>

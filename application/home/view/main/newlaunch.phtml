@@ -1,0 +1,116 @@
+{layout name="../../view/shared/home" /}
+<style>
+    @import "/www/resfile/css/site.css";
+
+    list .boxs {
+        padding: 50px 0;
+    }
+
+    list .box {
+        display: flex;
+        flex-flow: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        background: #000;
+    }
+
+    list .box div {
+        width: 50%;
+    }
+
+    list .box .text {
+        padding: 40px 50px;
+    }
+
+    time {
+        font-size: 24px;
+        display: block;
+        border-bottom: 1px solid #333;
+        padding-bottom: 12px;
+        margin-bottom: 12px;
+        color: #666;
+    }
+
+    a.feature-btn {
+        margin-top: 70px;
+        background: linear-gradient(135deg, #000 15px, #e60012 0);
+        border: none;
+        overflow: hidden;
+        padding: 10px 35px;
+        font-size: 16px;
+        display: block;
+        font-weight: bold;
+        color: #FFFFFF;
+        text-decoration: none;
+        width: 170px;
+    }
+
+    a.feature-btn:hover {
+        background: linear-gradient(135deg, #000 15px, #960012 0);;
+    }
+
+    list div.img img {
+        width: 100%;
+    }
+</style>
+
+<section id="inner-headline">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="pageTitle">新品发布</h2>
+            </div>
+        </div>
+    </div>
+</section>
+
+<list>
+    <div class="boxs container">
+        <?php
+        $num_i = 1;
+        foreach ($db as $r) {
+            echo '<div class="box">';
+            $dom_img = '';
+            $dom_img .= '<div class="img">';
+            $dom_img .= '<img src="/www/upload/launch/' . $r['imgurl'] . '">';
+            $dom_img .= '</div>';
+
+            $dom_txt = '';
+            $dom_txt .= '<div class="text" style="background: #000;">';
+            $dom_txt .= '<ul>';
+            $dom_txt .= '<li><span class="article__date">';
+            //$dom_txt .= '<time>' . date('F', strtotime($r['time'])) . ', ' . date('d', strtotime($r['time'])) . ', ' . date('Y', strtotime($r['time'])) . '</time>';
+            $dom_txt .= '<time>' . date('Y', strtotime($r['time'])) . ', ' . date('m', strtotime($r['time'])) . ', ' . date('d', strtotime($r['time'])) . '</time>';
+            $dom_txt .= '</span></li>';
+            $dom_txt .= '<li><h2 class="article__title h3">';
+            $dom_txt .= '<a style="text-decoration: none; color: #FFFFFF; font-weight: inherit;" href="/home/main/newlaunchtxt.html?id=' . $r['id'] . '">';
+            $dom_txt .= $r['title'];
+            $dom_txt .= '</a></h2></li>';
+            $dom_txt .= '<li style="color: #666; margin-bottom: 50px;">';
+            $content = $r['content'];
+            $content = strlen($content) > 180 ? substr($content, 0, 180) . '...' : $content;
+            $content = str_replace('<br>', '', $content);
+            $dom_txt .= $content;
+            $dom_txt .= '</li>';
+            $dom_txt .= '<li style="display:flex; justify-content: space-between; flex-wrap: nowrap;"><a class="feature-btn" href="/home/main/newlaunchtxt.html?id=' . $r['id'] . '">查看更多</a>';
+            $dom_txt .= '<a class="feature-btn" style="width:200px;" href="' . $r['url'] . '" target="_blank">在亚马逊上购买</a>';
+            $dom_txt .= '</li>';
+            $dom_txt .= '</ul></div>';
+            if ($num_i % 2 == 0) {
+                echo $dom_txt;
+                echo $dom_img;
+            } else {
+                echo $dom_img;
+                echo $dom_txt;
+            }
+            echo '</div>';
+            $num_i++;
+        }
+        ?>
+    </div>
+</list>
+
+
+<script type="text/javascript">
+
+</script>

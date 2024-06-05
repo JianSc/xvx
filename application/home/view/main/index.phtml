@@ -1,0 +1,274 @@
+{layout name="../../view/shared/home" /}
+<style>
+    @import "/www/resfile/css/site.css";
+    @import "/www/resfile/css/ft-carousel.css";
+
+    body {
+        /*background: #061726 !important;*/
+    }
+
+    ul, li {
+        list-style: none;
+    }
+
+    .newlist {
+        width: 100%;
+        position: fixed;
+        z-index: 5;
+        top: 0px;
+        min-width: 970px;
+    }
+
+    .newlist img {
+        width: 100%;
+        display: block;
+    }
+
+    .newlist .carousel-indicators span {
+        background: #000000;
+        box-shadow: 0 0 5px 1px #e60012;
+    }
+
+    .newlist-top {
+        display: block;
+        width: 100%;
+    }
+
+    .sub-content {
+        position: relative;
+        z-index: 10;
+        width: 100%;
+        background: #171717 !important;
+        padding: 50px 0;
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.23);
+    }
+
+    .sub-content .aligncenter {
+        text-align: center;
+    }
+
+    .sub-content .card {
+        position: relative;
+        margin: 0.5rem 0 1rem 0;
+        background-color: #fff;
+        transition: box-shadow .25s;
+        border-radius: 2px;
+    }
+
+    .sub-content .card.small {
+        font-size: 85%;
+    }
+
+    .sub-content .card .card-image {
+        position: relative;
+    }
+
+    .sub-content .card .card-image img {
+        display: block;
+        border-radius: 2px 2px 0 0;
+        position: relative;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+    }
+
+    .sub-content .card .card-image .card-title {
+        color: #2d2d2d;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.0);
+        font-weight: bold;
+        /*text-shadow: 1px 1px 1px #fff;*/
+        width: 100%;
+        height: 100%;
+        border-bottom: 4px solid #10cdff;
+        text-align: center;
+        /*font-size: 24px;*/
+        font-size: 16px;
+        text-decoration: none;
+    }
+
+    .sub-content .card .cardT {
+        font-size: 16px;
+        font-weight: bold;
+        color: #FFFFFF;
+        background: #10cdff;
+        padding: 8px 5px;
+        text-align: center;
+    }
+
+    .sub-content .card .card-image .card-title:hover {
+        color: #d60303;
+    }
+
+    .sub-content .card .card-content {
+        padding: 20px;
+        border-radius: 0 0 2px 2px;
+        overflow: hidden;
+        max-height: 40%;
+        color: #000;
+        text-align: center;
+        /*display: none;*/
+    }
+
+    .sub-content .newproduct {
+        display: flex;
+        flex-flow: row;
+        justify-content: space-between;
+        margin-top: 50px;
+        height: 420px;
+        background: url("/www/image/home-product-bg.jpg");
+    }
+
+    .sub-content .newproduct .n1,
+    .sub-content .newproduct .n2 {
+        width: 50%;
+        padding: 5px 0;
+    }
+
+    .sub-content .newproduct .n1 {
+        padding-top: 100px;
+    }
+
+    a.feature-btn {
+        margin-top: 70px;
+        background: linear-gradient(135deg, #171717 15px, #e60012 0);
+        border: none;
+        overflow: hidden;
+        padding: 10px 35px;
+        font-size: 16px;
+        display: block;
+        font-weight: bold;
+        color: #FFFFFF;
+        text-decoration: none;
+        width: 170px;
+    }
+
+    a.feature-btn:hover {
+        background: linear-gradient(135deg, #171717 15px, #960012 0);;
+    }
+</style>
+<script type="text/javascript" src="/www/resfile/scripts/ft-carousel.min.js"></script>
+<div class="newlist">
+    <div class="ft-carousel" id="newlist">
+        <ul class="carousel-inner">
+            <?php
+            foreach ($db as $r) {
+                echo '<li class="carousel-item"><a href="/home/main/product.html?id=' . $r['pid'] . '"><img src="/www/upload/newlist/' . $r['src'] . '"></a></li>';
+            }
+            ?>
+        </ul>
+    </div>
+</div>
+<div class="newlist-top"></div>
+<div class="sub-content">
+    <div class="container producttypes">
+        <div class="row" style="margin-bottom: 20px;">
+            <div class="col-md-12">
+                <div class="aligncenter">
+                    <h2 class="aligncenter">灵感来源于您的敲击</h2>
+                    致力于制造专业的机械键盘、PBT键帽和各种计算机周边产品
+                </div>
+                <br>
+            </div>
+        </div>
+        <div class="row service-v1 margin-bottom-40">
+            <div class="col-md-4 md-margin-bottom-40">
+                <div class="card small">
+                    <div class="cardT">键盘</div>
+                    <div class="card-image">
+                        <img class="img-responsive" src="/www/image/key.jpg">
+                        <a class="card-title" href="/home/main/products.html?id=1"></a>
+                    </div>
+                    <div class="card-content">
+                        <p>
+                            享受无与伦比的打击乐趣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 md-margin-bottom-40">
+                <div class="card small">
+                    <div class="card-image">
+                        <div class="cardT">键盘帽</div>
+                        <img class="img-responsive" src="/www/image/keycaps.jpg">
+                        <a class="card-title" href="/home/main/products.html?id=2"></a>
+                    </div>
+                    <div class="card-content">
+                        <p>
+                            让您的键盘充满丰富多彩的个性化
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 md-margin-bottom-40">
+                <div class="card small">
+                    <div class="cardT">周边产品</div>
+                    <div class="card-image">
+                        <img class="img-responsive" src="/www/image/mousepad.jpg">
+                        <a class="card-title" href="/home/main/products.html?id=3"></a>
+                    </div>
+                    <div class="card-content">
+                        <p>
+                            颠覆世界的想象力
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="newproduct container">
+        <div class="n1">
+            <ul style="display: flex; flex-flow: column;">
+                <li><h3>新产品</h3></li>
+                <li>
+                    <span style="font-size: 16px; word-break: break-all; margin-top: 40px; display: block;">
+
+                    </span>
+                </li>
+                <li>
+                    <a href="/home/main/newlaunch.html" class="feature-btn">
+                        新发布
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="n2">
+            <img src="/www/image/home-product.jpg">
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var $html = $('.newlist').html();
+
+    $(function () {
+        window.onload = function () {
+            new WOW().init();
+            $('#newlist').FtCarousel({time: 10000});
+
+            var h = $('#newlist').height();
+            h = h - 142;
+            $('.newlist-top').height(h);
+        };
+
+        $(window).resize(function () {
+            var h = $('#newlist').height();
+            var $newlist = $('.newlist');
+            var wdw = $(window).width();
+            $('#newlist').width(wdw);
+            $($newlist).width(wdw);
+            $($newlist).find('img').width(wdw);
+            var ele_h = $($newlist).height();
+            ele_h = ele_h - 142;
+            $('.newlist-top').height(ele_h);
+            $('.newlist').html($html);
+            $('#newlist').FtCarousel({time: 10000});
+        });
+    });
+
+</script>

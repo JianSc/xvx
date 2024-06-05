@@ -1,0 +1,144 @@
+{layout name="../../view/shared/manage" /}
+<style>
+    @import "/www/resfile/css/site.css";
+
+    .top {
+        font-weight: bold;
+        font-size: 16px;
+        border-bottom: 1px solid #aaaaaa;
+        display: flex;
+        flex-flow: row;
+        justify-content: flex-start;
+    }
+
+    .top span {
+        padding: 8px;
+        background-color: #aaaaaa;
+        border-radius: 5px 5px 0 0;
+        border-bottom: 3px solid #000;
+        display: block;
+        color: #000;
+    }
+
+    .top .active {
+        padding: 8px;
+        background-color: #000000;
+        border-radius: 5px 5px 0 0;
+        border-bottom: 3px solid #000;
+        display: block;
+        color: #FFFFFF;
+    }
+
+    .top a {
+        padding: 8px;
+        background-color: #aaaaaa;
+        border-radius: 5px 5px 0 0;
+        border-bottom: 3px solid #000;
+        display: block;
+        color: #000;
+        text-decoration: none;
+    }
+
+    .top a:hover {
+        background-color: #7a7a7a;
+    }
+
+    .can-edit {
+        margin-top: 10px;
+    }
+
+    .can-edit ul,
+    .can-edit li {
+        list-style: none;
+    }
+
+    .btn {
+        padding: 6px 30px;
+    }
+
+
+</style>
+<div class="top">
+    <span class="active">新品发布</span>
+    <a href="/home/manage/newgoodsedit.html">新品发布管理</a>
+</div>
+<div class="can-edit">
+    <form id="form1" class="form1">
+        <ul>
+            <li style="margin-bottom: 10px;">
+                <input class="form-control" name="title" type="text" placeholder="请输入标题">
+            </li>
+            <li style="margin-bottom: 10px;">
+                <input class="form-control" name="url" type="text" placeholder="购买链接">
+            </li>
+            <li style="display: flex; margin-bottom: 10px;">
+                <input name="file" type="file">
+                <span style="color: #ff0000; line-height: 26px; margin-left: 20px;">（注意：上传图片尺寸 585px*390px）</span>
+            </li>
+            <li>
+                <textarea class="form-control" name="contentval" id="contentval"
+                          style="resize: none; min-height: 500px;"></textarea>
+            </li>
+            <li style="margin-top: 10px; margin-bottom: 20px;">
+                <button type="button" name="but" class="btn btn-primary"><i class="fa fa-edit"
+                                                                            style="margin-right: 5px;"></i>发布
+                </button>
+                <button type="button" name="rebut" class="btn btn-danger hidden" style="margin-left: 15px;"><i
+                            class="fa fa-edit"
+                            style="margin-right: 5px;"></i>重置
+                </button>
+            </li>
+        </ul>
+    </form>
+</div>
+<script type="text/javascript">
+
+    $('#form1 button[name="rebut"]').click(function () {
+        window.location.href = '/home/manage/newgoods.html';
+    });
+
+    $('#form1 button[name="but"]').click(function () {
+        if ($(this).hasClass('disabled')) {
+            return false;
+        }
+        var val = $('#form1 textarea[name="contentval"]').val();
+        var title = $('#form1 input[name="title"]').val();
+        if (title == '') {
+            xtip.alert('标题不能为空！', 'e');
+            return false;
+        }
+        if (val == '') {
+            xtip.alert('内容不能为空！', 'e');
+            return false;
+        }
+        var dom = this;
+        var dom_i = $(this).find('i');
+        var $rebtn = $('#form1 button[name="rebut"]');
+        $(dom).addClass('disabled');
+        $(dom_i).addClass('fa-circle-o-notch');
+        $(dom_i).addClass('fa-spin');
+        $(dom_i).removeClass('fa-edit');
+        var f = $('#form1');
+
+        f.ajaxSubmit({
+            url: '/home/handles/add_newgoods.html?x=' + Math.random(),
+            type: 'post',
+            success: function (d) {
+                $(dom_i).removeClass('fa-spin');
+                $(dom_i).removeClass('fa-circle-o-notch');
+                $(dom_i).addClass('fa-edit');
+                switch (d.t) {
+                    case 'suc':
+                        xtip.alert(d.m, 's');
+                        $($rebtn).removeClass('hidden');
+                        break;
+                    case 'err':
+                        xtip.alert(d.m, 'e');
+                        $(dom).removeClass('disabled');
+                        break;
+                }
+            }
+        });
+
+    })
+</script>

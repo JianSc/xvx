@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=yes, initial-scale=0.3, maximum-scale=1, minimum-scale=0.1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{$title}</title>
+    {include file="www/resfile/css.html" /}
+    <link rel="stylesheet" type="text/css" href="/www/resfile/css/animate.css">
+    <!--if lt IE 9-->
+    <script type="text/javascript" src="/www/resfile/scripts/html5.js"></script>
+    <script type="text/javascript" src="/www/resfile/scripts/respond.min.js"></script>
+    <!--endif-->
+    {include file="www/resfile/js.html" /}
+    <style>
+
+
+        ul, li {
+            list-style: none;
+        }
+
+        .page {
+            padding: 30px;
+        }
+
+        .top {
+            color: #e60012;
+            font-size: 24px;
+        }
+
+        .help {
+            margin: 20px 0;
+        }
+
+        .the-line {
+            background: #333;
+            height: 1px;
+            width: 100%;
+        }
+
+        .box {
+            padding: 20px 0;
+        }
+
+        .dbox {
+            padding: 20px 20px;
+        }
+
+        .dbox .title {
+            font-size: 22px;
+            font-weight: bold;
+
+        }
+
+        .dbox a {
+            cursor: pointer;
+            text-decoration: solid;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="top">
+        使用手册和软件
+    </div>
+    <div class="help">
+        在这里您可以找到我们产品的用户手册、设备驱动程序和软件。
+    </div>
+    <div class="the-line"></div>
+    <?php
+    if (count($db) < 1) {
+        echo '<div class="box" style="font-size: 22px; font-weight: bold;">Sorry, there is no downloadable data!!</div>';
+    } else {
+        for ($i = 0; $i < count($db); $i++) {
+            echo '<div class="box dbox">';
+            echo '<ul>';
+            echo '<li class="title">' . $db[$i]['title'] . '</li>';
+            $size = $db[$i]['size'] / 1024;
+            $size = intval($size);
+            echo '<li class="download"><a href="/www/upload/download/' . $db[$i]['downname'] . '"><i class="fa fa-download" style="margin-right: 5px;"></i>Download  (' . $size . 'kb)</a></li>';
+            echo '</ul>';
+            echo '</div>';
+            if ($i < count($db) - 1) {
+                echo '<div class="the-line"></div>';
+            }
+        }
+    }
+    ?>
+</div>
+</body>
+</html>

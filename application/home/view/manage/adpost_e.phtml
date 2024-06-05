@@ -1,0 +1,161 @@
+{layout name="../../view/shared/manage" /}
+<style>
+    @import "/www/resfile/css/site.css";
+
+    ul, li {
+        list-style: none;
+    }
+
+    .top {
+        font-weight: bold;
+        font-size: 16px;
+        border-bottom: 1px solid #aaaaaa;
+        display: flex;
+        flex-flow: row;
+        justify-content: flex-start;
+    }
+
+    .top span {
+        padding: 8px;
+        background-color: #aaaaaa;
+        border-radius: 5px 5px 0 0;
+        border-bottom: 3px solid #000;
+        display: block;
+        color: #000;
+    }
+
+    .top .active {
+        padding: 8px;
+        background-color: #000000;
+        border-radius: 5px 5px 0 0;
+        border-bottom: 3px solid #000;
+        display: block;
+        color: #FFFFFF;
+    }
+
+    .top a {
+        padding: 8px;
+        background-color: #aaaaaa;
+        border-radius: 5px 5px 0 0;
+        border-bottom: 3px solid #000;
+        display: block;
+        color: #000;
+        text-decoration: none;
+    }
+
+    .top a:hover {
+        background-color: #7a7a7a;
+    }
+
+    .can-edit {
+        margin-top: 10px;
+    }
+
+    .can-edit ul,
+    .can-edit li {
+        list-style: none;
+    }
+
+    .btn {
+        padding: 6px 30px;
+    }
+
+    .box {
+        margin-top: 10px;
+        border-top: 1px solid #ffb990;
+    }
+
+    .box ul,
+    .box li {
+        list-style: none;
+    }
+
+    .box ul {
+        width: 100%;
+        border-bottom: 1px solid #ffb990;
+        cursor: pointer;
+        overflow: hidden;
+    }
+
+    .box ul:hover {
+        background-color: #fff1e9;
+    }
+
+    .box li {
+        padding: 5px 10px;
+        float: left;
+    }
+
+    .box a {
+        display: block;
+        padding: 0px 8px;
+        text-decoration: none;
+        background-color: #d20000;
+        color: #FFFFFF;
+        border-radius: 3px;
+        float: left;
+        margin-left: 8px;
+    }
+
+    .box a:hover {
+        background-color: #7d0000;
+    }
+
+    .box i {
+        margin-right: 8px;
+    }
+</style>
+<div class="top">
+    <a href="/home/manage/adpost">广告添加</a>
+    <a href="/home/manage/adpost_e" class="active">广告管理</a>
+</div>
+<div class="box">
+    <?php
+    foreach ($dbs as $db) {
+        echo '<ul>';
+        echo '<li style="background-color: #ffd9c3;">' . date('Y-m-d', strtotime($db['time'])) . '</li>';
+        echo '<li>' . $db['src'] . '</li>';
+        echo '<li style="float: right;">';
+        echo '<a name="btn_del" v="' . $db['id'] . '"><i class="fa fa-trash-o"></i>删除</a>';
+        echo '</li>';
+        echo '</ul>';
+    }
+    ?>
+</div>
+<div class="page">
+    {$dbs->render()}
+</div>
+
+<script>
+    $('.box a[name="btn_del"]').click(function () {
+        if ($(this).hasClass('disabled')) {
+            return false;
+        }
+        var thebtn = this;
+        var thedom = $(this).parent().parent();
+        var id = $(this).attr('v');
+        var html = $(this).html();
+        xtip.confirm('确认删除吗？', function () {
+            $(thebtn).addClass('disabled');
+            $(thebtn).html('<i class="fa fa-spin fa-circle-o-notch"></i>稍候');
+            $.ajax({
+                url: '/home/handles/del_adpost?x=' + Math.random(),
+                type: 'post',
+                data: {id: id},
+                success: function (d) {
+                    $(thebtn).html(html);
+                    $(thebtn).removeClass('disabled');
+                    switch (d.t) {
+                        case 'suc':
+                            xtip.alert(d.m, 's');
+                            $(thedom).remove();
+                            break;
+                        case 'err':
+                            xtip.alert(d.m, 'e');
+                            break;
+                    }
+                }
+            })
+        });
+    });
+</script>

@@ -1,0 +1,140 @@
+{layout name="../../view/shared/home" /}
+<style>
+    @import "/www/resfile/css/site.css";
+
+    ul, li {
+        list-style: none;
+    }
+
+    .main {
+        padding: 30px 50px;
+    }
+
+    .main .n1 li {
+        width: 30%;
+    }
+
+    .main .n2 li {
+        margin-top: 20px;
+        width: 48%;
+    }
+
+    input {
+        background: #1e1e1e !important;
+    }
+
+    textarea {
+        background: #1e1e1e !important;
+        color: #ffffff !important;
+    }
+
+    .xtiper {
+        color: #000 !important;
+    }
+
+</style>
+<section id="inner-headline">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="pageTitle">
+                    Support
+                </h2>
+            </div>
+        </div>
+    </div>
+</section>
+
+<list>
+    <div class="container">
+        <div class="main">
+            <form id="form1">
+                <div>
+                    <ul class="n1" style="display: flex; justify-content: space-between;">
+                        <li>
+                            <label>您的名称</label>
+                            <input class="form-control" name="name">
+                        </li>
+                        <li>
+                            <label>联系电话 *</label>
+                            <input class="form-control" name="phone">
+                        </li>
+                        <li>
+                            <label>地区 *</label>
+                            <input class="form-control" name="country">
+                        </li>
+                    </ul>
+                    <ul class="n2" style="display: flex; justify-content: space-between;">
+                        <li>
+                            <label>电子邮件</label>
+                            <input class="form-control" name="email">
+                        </li>
+                        <li>
+                            <label>购买的产品型号/名称</label>
+                            <input class="form-control" name="pro">
+                        </li>
+                    </ul>
+                    <ul class="n3" style="margin-top: 20px;">
+                        <li>
+                            <span>订单号 *</span>
+                        </li>
+                        <li>
+                            <label>为了帮助我们更好地为您提供服务，请提供您的订单号。</label>
+                        </li>
+                        <li>
+                            <input class="form-control" name="sn">
+                        </li>
+                    </ul>
+                    <ul class="n4" style="margin-top: 20px;">
+                        <li>
+                            <label>发送给我们的信息</label>
+                        </li>
+                        <li>
+                            <textarea class="form-control" name="mes" id="mes"
+                                      style="resize: none; min-height: 200px;"></textarea>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+
+                        </li>
+                    </ul>
+                    <ul style="display: flex; justify-content: center; margin-top: 20px;">
+                        <li>
+                            <button class="btn btn-danger" type="button" style="width: 360px;" name="sub">提交
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </div>
+</list>
+
+<script type="text/javascript">
+    $('#form1 button[name="sub"]').click(function () {
+        var btn = $(this);
+        if ($(this).hasClass('disabled')) {
+            return false;
+        }
+        var f = $('#form1');
+
+        $(this).addClass('disabled');
+
+        f.ajaxSubmit({
+            url: '/home/handles/support?x=' + Math.random(),
+            type: 'post',
+            success: function (d) {
+                switch (d.t) {
+                    case 'suc':
+                        xtip.alert(d.m, 's');
+                        break;
+                    case 'err':
+                        xtip.alert(d.m, 'e');
+                        $(btn).removeClass('disabled');
+                        break;
+                }
+            }
+        })
+    });
+</script>

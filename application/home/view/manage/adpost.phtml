@@ -1,0 +1,152 @@
+{layout name="../../view/shared/manage" /}
+<style>
+    @import "/www/resfile/css/site.css";
+
+    ul, li {
+        list-style: none;
+    }
+
+    .top {
+        font-weight: bold;
+        font-size: 16px;
+        border-bottom: 1px solid #aaaaaa;
+        display: flex;
+        flex-flow: row;
+        justify-content: flex-start;
+    }
+
+    .top .active {
+        padding: 8px;
+        background-color: #000000;
+        border-radius: 5px 5px 0 0;
+        border-bottom: 3px solid #000;
+        display: block;
+        color: #FFFFFF;
+    }
+
+    .top a {
+        padding: 8px;
+        background-color: #aaaaaa;
+        border-radius: 5px 5px 0 0;
+        border-bottom: 3px solid #000;
+        display: block;
+        color: #000;
+        text-decoration: none;
+    }
+
+    .top a:hover {
+        background-color: #7a7a7a;
+    }
+
+    .page {
+        padding: 30px;
+    }
+
+    .page li {
+        padding-bottom: 10px;
+    }
+</style>
+<div class="top">
+    <a href="/home/manage/adpost" class="active">广告添加</a>
+    <a href="/home/manage/adpost_e">广告管理</a>
+</div>
+<div class="page">
+    <form id="form1">
+        <ul>
+            <li style="color: #ff0000;">
+                注意：首页广告图仅显示最新6张！
+            </li>
+            <li>绑定产品类别</li>
+            <li>
+                <select class="form-control" name="t1">
+                    <option value="0" selected>请选择...</option>
+                    <option value="1">键盘</option>
+                    <option value="2">键帽</option>
+                    <option value="3">鼠标垫</option>
+                </select>
+            </li>
+            <li>绑定产品</li>
+            <li>
+                <select class="form-control" name="t2"></select>
+            </li>
+            <li style="color: #ff0000;">图片尺寸: 1920*700</li>
+            <li>
+                <input type="file" name="file">
+            </li>
+            <li>
+                <button class="btn btn-success" type="button" name="sub" style="width: 200px; margin-top: 30px;"><i
+                            class="fa fa-upload"
+                            style="margin-right: 5px;"></i>提交上传
+                </button>
+                <button class="btn btn-danger hidden" type="button" name="res"
+                        style="width: 200px; margin-top: 30px; margin-left: 20px;"><i class="fa fa-refresh"
+                                                                                      style="margin-right: 5px;"></i>重置
+                </button>
+            </li>
+
+        </ul>
+    </form>
+</div>
+
+<script>
+    $('#form1 button[name="res"]').click(function () {
+        window.location.href = '/home/manage/adpost';
+    });
+
+    $('#form1 button[name="sub"]').click(function () {
+        if ($(this).hasClass('disabled')) {
+            return false;
+        }
+
+        var f = $('#form1');
+        $(this).addClass('disabled');
+        var btndom = $(this);
+        var resdom = $('#form1 button[name="res"]');
+
+        f.ajaxSubmit({
+            url: '/home/handles/add_adpost?x=' + Math.random(),
+            type: 'post',
+            success: function (d) {
+                switch (d.t) {
+                    case 'suc':
+                        xtip.alert(d.m, 's');
+                        $(resdom).removeClass('hidden');
+                        break;
+                    case 'err':
+                        xtip.alert(d.m, 'e');
+                        $(btndom).removeClass('disabled');
+                        break;
+                }
+            }
+        })
+    });
+
+    $('#form1 select[name="t1"]').change(function () {
+        var id = $(this).val();
+        if (id == 0) {
+            return false;
+        }
+
+        var $dom = $('#form1 select[name="t2"]');
+        $($dom).html('');
+
+        $.ajax({
+            url: '/home/handles/gettype.html?x=' + Math.random(),
+            type: 'post',
+            data: {id: id},
+            success: function (d) {
+                if (d.t == 'suc') {
+                    var arr = d.m.split('<bbt>');
+                    var xhtml;
+                    $(arr).each(function (index, val) {
+                        var narr = val.split('<kpt>');
+                        var nid = narr[1];
+                        var nval = narr[0];
+                        xhtml += '<option value="' + nid + '">' + nval + '</option>';
+                    });
+                    $($dom).html(xhtml);
+                }
+            }
+        })
+    });
+</script>

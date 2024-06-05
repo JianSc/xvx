@@ -1,0 +1,337 @@
+{layout name="../../view/shared/manage" /}
+<style>
+    @import "/www/resfile/css/site.css";
+    @import "/www/resfile/scripts/xeditor/css/xeditor.css";
+
+    .top {
+        font-weight: bold;
+        font-size: 16px;
+        border-bottom: 1px solid #aaaaaa;
+        display: flex;
+        flex-flow: row;
+        justify-content: flex-start;
+    }
+
+    .top .active {
+        padding: 8px;
+        background-color: #000000;
+        border-radius: 5px 5px 0 0;
+        border-bottom: 3px solid #000;
+        display: block;
+        color: #FFFFFF;
+    }
+
+    .top a {
+        padding: 8px;
+        background-color: #aaaaaa;
+        border-radius: 5px 5px 0 0;
+        border-bottom: 3px solid #000;
+        display: block;
+        color: #000;
+        text-decoration: none;
+    }
+
+    .top a:hover {
+        background-color: #7a7a7a;
+    }
+
+    .content ul,
+    .content li {
+        list-style: none;
+    }
+
+    .content {
+        margin-top: 20px;
+        padding-right: 300px;
+        position: relative;
+    }
+
+    .content .imgbtn {
+        display: flex;
+        justify-content: flex-start;
+        margin: 10px 0 10px 0;
+    }
+
+    .content .imgbtn a {
+        background-color: #00a80e;
+        color: #000;
+        display: block;
+        border-radius: 3px;
+        text-decoration: none;
+        padding: 5px 10px;
+        color: #FFFFFF;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+
+    .content .imgbtn a:hover {
+        background-color: #005b08;
+
+    }
+
+    .content .viewimg ul, {
+        list-style: none;
+    }
+
+    .content .viewimg {
+        position: absolute;
+        z-index: 9;
+        right: 10px;
+        /*background-color: #d9534f;*/
+        display: flex;
+        flex-flow: column;
+    }
+
+    .content .viewimg img {
+        max-width: 270px;
+    }
+
+    .content .a2 span {
+        padding: 8px 5px;
+        width: 100px;
+    }
+</style>
+<script type="text/javascript" src="/www/resfile/scripts/xeditor/js/xeditor.js"></script>
+<div class="top">
+    <a href="/home/manage/goods" class="active">产品添加</a>
+    <a href="/home/manage/products_edit">产品管理</a>
+</div>
+<div class="content">
+    <form id="form1" name="form1" method="post">
+        <ul class="viewimg">
+            <?php
+            for ($i = 0; $i < 6; $i++) {
+                echo '<img name="im' . $i . '">';
+            }
+            ?>
+        </ul>
+        <ul>
+            <li style="margin: 10px 0; display: flex; flex-flow: row;">
+                <span style="width: 80px; padding: 8px 0;">请选择类别:</span>
+                <select style="width: 100px;" class="form-control" name="type" id="type">
+                    <option value="1" selected>键盘</option>
+                    <option value="2">键帽</option>
+                    <option value="3">鼠标垫</option>
+                </select>
+            </li>
+            <li>
+                <input class="form-control" type="text" name="title" placeholder="请输入商品名称">
+            </li>
+            <li class="img">
+                <ul>
+                    <li style="color: #ff0000; padding: 10px 10px 5px 10px;">
+                        注意:一个商品上传图片的数量上限为6张，主页及商品列表中显示的商品图片为上传的第一张。
+                    </li>
+                    <li style="color: #ff0000; padding: 5px 10px 10px 10px;">图片尺寸: 450*450</li>
+                    <!--                    <li class="imgbtn">-->
+                    <!--                        <a name="plus">加一个图片</a>-->
+                    <!--                        <a name="less">减一个图片</a>-->
+                    <!--                        <a name="viewimg">查看/刷新待上传图片</a>-->
+                    <!--                    </li>-->
+                    <?php
+                    for ($i = 0; $i < 6; $i++) {
+                        ?>
+                        <li class="img-upload"><input type="file" v="file<?php echo $i ?>" name="upimg[]"
+                                                      style="width: 300px;"
+                                                      accept=".jpg,.jpge,.gif,.png"></li>
+                        <?php
+                    }
+                    ?>
+                </ul>
+            </li>
+            <li class="a2" style="margin-top: 10px;">
+                <ul style="display: flex; justify-content: space-between;">
+                    <li style="display: inline-flex; flex-flow: row; flex-wrap: nowrap;">
+                        <span style="width: 60px;">价格:</span>
+                        <input class="form-control" type="text" name="money">
+                    </li>
+                    <li style="display: inline-flex; flex-flow: row;">
+                        <span>购买网址:</span>
+                        <input class="form-control" type="text" name="url" style="width: 480px;">
+                    </li>
+                </ul>
+            </li>
+            <li style="margin-top: 10px;padding: 8px; 5px;background-color: #b9ff99; color: #2c6a0f; border:1px solid #3a8e13; font-weight: bold; font-size: 16px;">
+                产品介绍
+            </li>
+            <li style="margin-top: 10px;">
+                <textarea class="form-control" name="contentval" id="contentval"
+                          style="resize: none; min-height:330px;"></textarea>
+            </li>
+            <li style="margin-top: 20px; margin-bottom: 20px;">
+                <button type="button" name="submit" class="btn btn-success"
+                        style="width: 100%; padding-top: 12px; padding-bottom: 12px;"><i class="fa fa-edit"
+                                                                                         style="margin-right: 8px;"></i>发布
+                </button>
+
+                <button type="button" name="subnew" class="btn btn-danger hidden"
+                        style="width: 100%; padding-top: 12px; padding-bottom: 12px;margin-top: 15px;"><i
+                            class="fa fa-plus"
+                            style="margin-right: 8px;"></i>继续添加
+                </button>
+            </li>
+        </ul>
+    </form>
+</div>
+
+<script type="text/javascript">
+    insert_editor('contentval');
+
+    $('.content #form1 button[name="subnew"]').click(function () {
+        window.location.href = '/home/manage/goods';
+    });
+
+    $('.content #form1 button[name="submit"]').click(function () {
+        var $but = $(this);
+        var $butnew = $('.content #form1 button[name="subnew"]');
+        var $i = $(this).parent().find('i');
+        if ($(this).hasClass('disabled')) {
+            return false;
+        }
+
+        var title = $('#form1 input[name="title"]').val();
+        if (title == '') {
+            xtip.alert('请输入商品标题！', 'e');
+            return false;
+        }
+
+        var f = $('#form1');
+        $($but).addClass('disabled');
+
+        $($i).addClass('fa-circle-o-notch');
+        $($i).addClass('fa-spin');
+        $($i).removeClass('fa-edit');
+
+        f.ajaxSubmit({
+            url: '/home/handles/add_products.html?x=' + Math.random(),
+            type: 'post',
+            success: function (d) {
+                switch (d.t) {
+                    case 'suc':
+                        xtip.alert(d.m, 's');
+                        $($i).removeClass('fa-spin');
+                        $($i).removeClass('fa-circle-o-notch');
+                        $($i).addClass('fa-edit');
+                        $($butnew).removeClass('hidden');
+                        break;
+                    case 'err':
+                        xtip.alert(d.m, 'e');
+                        $($i).removeClass('fa-spin');
+                        $($i).removeClass('fa-circle-o-notch');
+                        $($i).addClass('fa-edit');
+                        $($but).removeClass('disabled');
+                        break;
+                }
+            }
+        });
+
+    });
+
+    $('input[v="file0"]').change(function () {
+        var $files = $(this).prop('files');
+        var $im = $('.viewimg img[name="im0"]');
+
+        if ($files.length) {
+            var $file = $files[0];
+            var reader = new FileReader();
+            reader.onload = function () {
+                $($im).attr('src', this.result);
+                $($im).css('display', 'block');
+                $($im).css('margin-bottom', '5px');
+                $($im).css('border', '1px solid #aaaaaa');
+
+            };
+            reader.readAsDataURL($file);
+        }
+    });
+
+    $('input[v="file1"]').change(function () {
+        var $files = $(this).prop('files');
+        var $im = $('.viewimg img[name="im1"]');
+
+        if ($files.length) {
+            var $file = $files[0];
+            var reader = new FileReader();
+            reader.onload = function () {
+                $($im).attr('src', this.result);
+                $($im).css('display', 'block');
+                $($im).css('margin-bottom', '5px');
+                $($im).css('border', '1px solid #aaaaaa');
+
+            };
+            reader.readAsDataURL($file);
+        }
+    });
+
+    $('input[v="file2"]').change(function () {
+        var $files = $(this).prop('files');
+        var $im = $('.viewimg img[name="im2"]');
+
+        if ($files.length) {
+            var $file = $files[0];
+            var reader = new FileReader();
+            reader.onload = function () {
+                $($im).attr('src', this.result);
+                $($im).css('display', 'block');
+                $($im).css('margin-bottom', '5px');
+                $($im).css('border', '1px solid #aaaaaa');
+
+            };
+            reader.readAsDataURL($file);
+        }
+    });
+
+    $('input[v="file3"]').change(function () {
+        var $files = $(this).prop('files');
+        var $im = $('.viewimg img[name="im3"]');
+
+        if ($files.length) {
+            var $file = $files[0];
+            var reader = new FileReader();
+            reader.onload = function () {
+                $($im).attr('src', this.result);
+                $($im).css('display', 'block');
+                $($im).css('margin-bottom', '5px');
+                $($im).css('border', '1px solid #aaaaaa');
+
+            };
+            reader.readAsDataURL($file);
+        }
+    });
+
+    $('input[v="file4"]').change(function () {
+        var $files = $(this).prop('files');
+        var $im = $('.viewimg img[name="im4"]');
+
+        if ($files.length) {
+            var $file = $files[0];
+            var reader = new FileReader();
+            reader.onload = function () {
+                $($im).attr('src', this.result);
+                $($im).css('display', 'block');
+                $($im).css('margin-bottom', '5px');
+                $($im).css('border', '1px solid #aaaaaa');
+
+            };
+            reader.readAsDataURL($file);
+        }
+    });
+
+    $('input[v="file5"]').change(function () {
+        var $files = $(this).prop('files');
+        var $im = $('.viewimg img[name="im5"]');
+
+        if ($files.length) {
+            var $file = $files[0];
+            var reader = new FileReader();
+            reader.onload = function () {
+                $($im).attr('src', this.result);
+                $($im).css('display', 'block');
+                $($im).css('margin-bottom', '5px');
+                $($im).css('border', '1px solid #aaaaaa');
+
+            };
+            reader.readAsDataURL($file);
+        }
+    });
+</script>

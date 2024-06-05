@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=yes, initial-scale=0.3, maximum-scale=1, minimum-scale=0.1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{$title}</title>
+    {include file="www/resfile/css.html" /}
+    <!--if lt IE 9-->
+    <script type="text/javascript" src="/www/resfile/scripts/html5.js"></script>
+    <script type="text/javascript" src="/www/resfile/scripts/respond.min.js"></script>
+    <!--endif-->
+    {include file="www/resfile/js.html" /}
+    <style>
+
+        body {
+            background: #ddd;
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        .view {
+            width: 480px;
+            margin: 0 auto;
+            margin-top: 200px;
+            overflow: hidden;
+            border-radius: 5px;
+            border: 2px solid #bfbfbf;
+            padding: 20px;
+            background: #fff;
+        }
+
+        h3 {
+            margin: 0;
+        }
+
+        .view li {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        .view .btn {
+            padding: 10px 12px;
+        }
+
+        .view .form-control {
+            padding: 10px 12px;
+            border-radius: 0;
+            height: auto;
+        }
+
+        .view .code {
+            overflow: hidden;
+        }
+
+        .view .code li {
+            border: none;
+            float: left;
+            padding: 0;
+            margin: 0;
+        }
+
+        .view .code img {
+            margin-left: 20px;
+            border: 0;
+            height: 42px;
+            width: 130px;
+            border: 1px solid #ddd;
+        }
+
+        .view #rest-code-click {
+            cursor: pointer;
+        }
+
+        .view #rest-code-click:hover,
+        .view #rest-code-click:focus {
+            color: #ff0000;
+        }
+
+    </style>
+</head>
+<body>
+<?php
+echo \think\Session::has('name');
+?>
+<form id="form1" name="form1" class="" action="" method="post">
+    <div class="view">
+        <ul>
+            <li>
+                <h3>
+                    <i class="fa fa-gear fa-1x"></i>
+                    <strong>后台管理</strong>
+                    <span style="color:#00a80e">登陆</span>
+
+                </h3>
+            </li>
+            <li>
+                <label>Username:</label>
+                <input class="form-control" name="name" id="name" type="text" placeholder="请输入登陆帐号">
+            </li>
+            <li>
+                <label>Password:</label>
+                <input class="form-control" name="pwd" id="pwd" type="password" placeholder="请输入密码">
+            </li>
+            <li>
+                <label>Verification Code:</label>
+                <ul class="code">
+                    <li>
+                        <input class="form-control" name="code" id="code" type="text" placeholder="请输入验证码">
+                    </li>
+                    <li>
+                        {:captcha_img()}
+                    </li>
+                    <li style="margin-top: 24px; margin-left: 10px;">
+                        <a id="rest-code-click">换一张</a>
+                    </li>
+                </ul>
+
+            </li>
+            <li style="border: none;">
+                <button style="width: 100%;" class="btn btn-primary" type="button" name="submit" id="submit">
+                    <span style="font-size: 16px">
+                        <i class="fa fa-sign-in" style="margin-right: 10px;"></i>
+                        登 陆
+                    </span>
+                </button>
+            </li>
+        </ul>
+    </div>
+</form>
+<script>
+    function resCodeIMG() {
+        var sendBUT = $('#form1 .lend button[name="submit"]');
+        if ($(sendBUT).hasClass('disabled')) {
+            return;
+        }
+        var path = '{:captcha_src()}?x=' + Math.random();
+        $('#form1 img').attr('src', path);
+    }
+    $("#rest-code-click").click(function () {
+        resCodeIMG();
+    });
+
+    $("#form1 #submit").click(function () {
+        var name = $("#form1 input[name='name']").val();
+        var pwd = $("#form1 input[name='pwd']").val();
+        var code = $("#form1 input[name='code']").val();
+        var dom = this;
+        var dom_html = $(dom).html();
+        if ($(dom).hasClass("disabled")) {
+            return false;
+        }
+        if (name == "") {
+            xtip.alert('请输入帐号！', 'e');
+            return false;
+        }
+        if (pwd == "") {
+            xtip.alert('请输入密码！', 'e');
+            return false;
+        }
+        if (code == "") {
+            xtip.alert('请输入验证码！', 'e');
+            return false;
+        }
+        $(dom).addClass("disabled");
+        $(dom).html("<span style='font-size: 16px'><i class='fa fa-refresh fa-spin' style='margin-right: 10px'></i>请稍候...</span>");
+        $.ajax({
+            url: "/home/handles/userage.html?type=lend",
+            type: "POST",
+            data: {name: name, pwd: pwd, code: code},
+            success: function (data) {
+                $(dom).html(dom_html);
+                switch (data.t) {
+                    case "err":
+                        $(dom).removeClass("disabled");
+                        $("#form1")[0].reset();
+                        $("#form1 input[name='name']").focus();
+                        resCodeIMG();
+                        xtip.alert(data.m, 'e');
+                        break;
+                    case "suc":
+                        window.location.href = "/home/manage";
+                        break;
+                }
+            }
+        });
+
+        return false;
+    })
+</script>
+</body>
+</html>

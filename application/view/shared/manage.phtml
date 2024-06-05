@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=yes, initial-scale=0.3, maximum-scale=1, minimum-scale=0.1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{$title}</title>
+    {include file="www/resfile/css.html" /}
+    <!--if lt IE 9-->
+    <script type="text/javascript" src="/www/resfile/scripts/html5.js"></script>
+    <script type="text/javascript" src="/www/resfile/scripts/respond.min.js"></script>
+    <!--endif-->
+    {include file="www/resfile/js.html" /}
+    <style>
+
+
+        .menus {
+            background: #006b95;
+            height: 100%;
+            width: 220px;
+            padding: 10px;
+        }
+
+        .menus .menu {
+            margin-top: 10px;
+        }
+
+        .menus .menu i {
+            margin-right: 5px;
+        }
+
+        .menus .menu a {
+            text-decoration: none;
+            color: #fff;
+            display: block;
+            padding: 8px 12px;
+        }
+
+        .menus .menu .active {
+            background: #00a257;
+        }
+
+        .menus .menu .active:hover {
+            background: #00a257;;
+        }
+
+        .menus .menu a:hover {
+            background: #013d54;
+            -webkit-transition: all 0.3s;
+            -moz-transition: all 0.3s;
+            -ms-transition: all 0.3s;
+            -o-transition: all 0.3s;
+            transition: all 0.3s;
+        }
+
+        .menus .menu .divider {
+            border-top: 1px solid #01445f;
+            border-bottom: 1px solid #007cad;
+            overflow: hidden;
+            margin: 0 8px;
+        }
+
+        .menus ul,
+        .menus li {
+            list-style: none;
+        }
+
+        .main {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1;
+            min-width: 800px;
+            display: flex;
+            flex-wrap: nowrap;
+            flex-flow: row;
+            justify-content: center;
+            background-color: #aaaaaa;
+        }
+
+        .menus {
+            float: left;
+        }
+
+        .view {
+            padding: 10px;
+            min-width: 800px;
+            width: 1170px;
+            background-color: #FFFFFF;
+            overflow: auto;
+        }
+
+        .view .view-form {
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            overflow: hidden;
+            width: 800px;
+            margin-bottom: 10px;
+            /*display: none;*/
+        }
+
+        .view .view-form li {
+            padding: 5px;
+        }
+
+        .view .form-control {
+            border-radius: 0;
+        }
+
+        .view .view-list {
+            overflow: hidden;
+            width: 800px;
+        }
+
+        .view .view-list ul {
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+
+        .view .view-list .m {
+            background: #f2f2f2;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .view .view-list li {
+            padding: 10px 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="menus">
+        <ul>
+            <li class="logo">
+                <img src="/www/image/manage-logo.jpg"
+                     style="width: 200px; height: 80px; background: #fff; border: 1px solid #000;">
+            </li>
+            <li class="menu">
+                <?php
+                $urlname = array(
+                    '新品发布',
+                    '产品管理',
+                    '下载管理',
+                    '广告图',
+                    '留言/支持管理',
+                    '设置',
+                    '退出'
+                );
+                $url = array(
+                    '/home/manage/newgoods',
+                    '/home/manage/goods',
+                    '/home/manage/download',
+                    '/home/manage/adpost',
+                    '/home/manage/support',
+                    '/home/manage/xsys',
+                    '/home/manage/quit'
+                );
+
+                $menu = isset($menu) ? $menu : 0;
+
+                ?>
+                <ul>
+                    <?php
+                    for ($i = 0; $i < count($urlname); $i++) {
+                        echo '<li>';
+                        if ($i + 1 == $menu) {
+                            echo '<a class="active" href="' . $url[$i] . '">';
+                        } else {
+                            echo '<a href="' . $url[$i] . '">';
+                        }
+                        echo '<i class="fa fa-list"></i>' . $urlname[$i] . '</a>';
+                        echo '</li>';
+                        if ($i + 1 != count($urlname)) {
+                            echo '<li class="divider" style="heigh:0px"></li>';
+                        }
+                    }
+                    ?>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="view">
+        {__CONTENT__}
+    </div>
+</div>
+</body>
+</html>

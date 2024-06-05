@@ -1,0 +1,166 @@
+{layout name="../../view/shared/manage" /}
+<?php
+?>
+<style>
+    @import "/www/resfile/css/site.css";
+
+    .top {
+        font-weight: bold;
+        font-size: 16px;
+        border-bottom: 1px solid #aaaaaa;
+        display: flex;
+        flex-flow: row;
+        justify-content: flex-start;
+    }
+
+    .top .active {
+        padding: 8px;
+        background-color: #000000;
+        border-radius: 5px 5px 0 0;
+        border-bottom: 3px solid #000;
+        display: block;
+        color: #FFFFFF;
+    }
+
+    .top a {
+        padding: 8px;
+        background-color: #aaaaaa;
+        border-radius: 5px 5px 0 0;
+        border-bottom: 3px solid #000;
+        display: block;
+        color: #000;
+        text-decoration: none;
+    }
+
+    .top a:hover {
+        background-color: #7a7a7a;
+    }
+
+    .can-edit {
+        margin-top: 10px;
+    }
+
+    .can-edit ul,
+    .can-edit li {
+        list-style: none;
+    }
+
+    .btn {
+        padding: 6px 30px;
+    }
+
+    .box {
+        margin-top: 10px;
+        border-top: 1px solid #ffb990;
+    }
+
+    .box ul,
+    .box li {
+        list-style: none;
+    }
+
+    .box ul.c {
+        width: 100%;
+        border-bottom: 1px solid #ffb990;
+        overflow: hidden;
+    }
+
+    .box ul.t:hover {
+        background-color: #fff1e9;
+    }
+
+    .box li {
+        padding: 5px 10px;
+        float: left;
+    }
+
+    .box a {
+        display: block;
+        padding: 0px 8px;
+        text-decoration: none;
+        background-color: #d20000;
+        color: #FFFFFF;
+        border-radius: 3px;
+        float: left;
+        margin-left: 8px;
+    }
+
+    .box a:hover {
+        background-color: #7d0000;
+    }
+
+    .box i {
+        margin-right: 8px;
+    }
+
+
+</style>
+<div class="top">
+    <div class="top">
+        <a href="/home/manage/download">下载添加</a>
+        <a href="/home/manage/download_edit" class="active">下载管理</a>
+    </div>
+</div>
+<div class="box">
+    <?php
+    foreach ($db_xdownload as $db) {
+        echo '<ul class="c" style="display:flex; flex-flow: column;">';
+        echo '<li style="padding: 0;"><ul class="t" style="cursor: pointer; overflow: hidden;">';
+        echo '<li style="background-color: #ffd9c3;">' . date('Y-m-d', strtotime($db['time'])) . '</li>';
+        echo '<li style="min-width: 350px;">' . $db['title'] . '</li>';
+        echo '<li style="float: right; border-right: 1px solid #ffb990;">';
+        echo '<a name="btn_del" v="' . $db['id'] . '"><i class="fa fa-trash-o"></i>删除</a>';
+        echo '</li>';
+        $size = $db['size'] / 1024 / 1024;
+        $size = number_format($size, 2) . 'mb';
+        echo '<li style="float:right; width:130px; text-align: right; border-right: 1px solid #ffb990;border-left: 1px solid #ffb990;">' . $size . '</li>';
+        echo '</ul></li>';
+        echo '<li class="s" style="border-right: 1px solid #ffb990; border-top: 1px solid #ffb990; border-left: 1px solid #ffb990; display:none;">';
+        echo '<div style="overflow: hidden">' . $db['val'] . '</div>';
+        echo '</li>';
+        echo '</ul>';
+    }
+    ?>
+</div>
+<div class="page">
+    {$db_xdownload->render()}
+</div>
+
+<script type="text/javascript">
+    $('.box ul.t').click(function () {
+        $(this).parent().parent().children('.s').slideToggle();
+        $(this).parent().parent().siblings('.c').children('.s').slideUp();
+    });
+
+    $('.box a[name="btn_del"]').click(function () {
+        if ($(this).hasClass('disabled')) {
+            return false;
+        }
+        var thebtn = this;
+        var thedom = $(this).parent().parent().parent().parent();
+        var id = $(this).attr('v');
+        var html = $(this).html();
+        xtip.confirm('确认删除吗？', function () {
+            $(thebtn).addClass('disabled');
+            $(thebtn).html('<i class="fa fa-spin fa-circle-o-notch"></i>稍候');
+            $.ajax({
+                url: '/home/handles/del_download?x=' + Math.random(),
+                type: 'post',
+                data: {id: id},
+                success: function (d) {
+                    $(thebtn).html(html);
+                    $(thebtn).removeClass('disabled');
+                    switch (d.t) {
+                        case 'suc':
+                            xtip.alert(d.m, 's');
+                            $(thedom).remove();
+                            break;
+                        case 'err':
+                            xtip.alert(d.m, 'e');
+                            break;
+                    }
+                }
+            })
+        });
+    });
+</script>

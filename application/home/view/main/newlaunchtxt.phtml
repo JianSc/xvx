@@ -1,0 +1,42 @@
+{layout name="../../view/shared/home" /}
+<style>
+    @import "/www/resfile/css/site.css";
+
+    text .content {
+        padding: 50px 80px;
+        color: #666;
+    }
+
+    text .content .time {
+        font-size: 20px;
+        font-weight: bold;
+        padding-bottom: 20px;
+    }
+
+    text .content .txt {
+        font-size: 18px;
+        word-break: break-all;
+    }
+</style>
+
+<section id="inner-headline">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="pageTitle"><?php echo $db['title'] ?></h2>
+            </div>
+        </div>
+    </div>
+</section>
+
+<text>
+    <div class="container content">
+        <div class="time"> Post by <?php echo date('F', strtotime($db['time'])) ?> <?php echo date('d', strtotime($db['time'])) ?>, <?php echo date('Y', strtotime($db['time'])) ?></div>
+        <div class="txt"><?php echo $db['content'] ?></div>
+    </div>
+</text>
+
+
+<script type="text/javascript">
+
+</script>

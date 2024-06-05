@@ -1,0 +1,165 @@
+{layout name="../../view/shared/home" /}
+<style>
+    @import "/www/resfile/css/site.css";
+
+    ul, li {
+        list-style: none;
+    }
+
+    list .xbox {
+        width: 25%;
+        margin: 5px;
+        background: #000;
+    }
+
+    list .xrow {
+        display: flex;
+        flex-flow: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+    }
+
+    list img {
+        width: 100%;
+    }
+
+    list .main {
+        margin: 50px 0;
+    }
+
+    list .xurl {
+        text-decoration: none;
+        cursor: pointer;
+        color: #666;
+        border: 1px solid #2d2d2d;
+        display: block;
+        padding: 15px;
+        height: 100%;
+    }
+
+    list .xurl:hover {
+        border: 1px solid #790000;
+    }
+
+    list .xtitle {
+        text-align: center;
+    }
+
+    list .page {
+        display: flex;
+        flex-flow: row;
+        justify-content: flex-end;
+    }
+
+    .pagination li a,
+    .pagination li span {
+        position: relative;
+        float: left;
+        padding: 3px 10px;
+        margin-left: -1px;
+        line-height: 1.42857143;
+        text-decoration: none;
+        background-color: #101010;
+        border: 1px solid #2d2d2d;
+        border-radius: 0;
+        color: #a4a4a4;
+    }
+
+    .pagination .active a,
+    .pagination .active span,
+    .pagination .active a:hover,
+    .pagination .active a:focus,
+    .pagination .active span:hover,
+    .pagination .active span:focus {
+        z-index: 2;
+        color: #fff;
+        background-color: #8a8b88;
+        border-color: #878682;
+    }
+
+    .pagination li a:hover {
+        border-color: #40403e;
+        background-color: #676864;
+        color: #000;
+    }
+
+    .pagination li a:focus {
+        color: #000;
+    }
+
+    .pagination li:first-child a, .pagination li:first-child span {
+        border-radius: 0;
+    }
+
+    .pagination li:last-child a, .pagination li:last-child span {
+        border-radius: 0;
+    }
+
+    .pagination > .disabled > span,
+    .pagination > .disabled > span:hover,
+    .pagination > .disabled > span:focus,
+    .pagination > .disabled > a,
+    .pagination > .disabled > a:hover,
+    .pagination > .disabled > a:focus {
+        color: #777;
+        cursor: not-allowed;
+        background-color: #444444;
+        border-color: #5e5e5e;
+    }
+
+</style>
+<section id="inner-headline">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="pageTitle">
+                    <?php
+                    switch ($id) {
+                        case '1':
+                            echo '机械键盘';
+                            break;
+                        case '2':
+                            echo '键盘帽';
+                            break;
+                        case '3':
+                            echo '周边产品';
+                            break;
+                    }
+                    ?>
+                </h2>
+            </div>
+        </div>
+    </div>
+</section>
+
+<list>
+    <div class="container">
+        <div class="main">
+            <?php
+            if (count($db) < 1) {
+                echo '<div style="display: flex; justify-content: center;">Sorry, there are no products in this collection</div>';
+            }
+            ?>
+            <div class="xrow">
+                <?php
+                for ($i = 0; $i < count($db); $i++) {
+                    $mod = $i + 1;
+                    echo '<div class="xbox">';
+                    echo '<a class="xurl" href="/home/main/product.html?id=' . $db[$i]['id'] . '">';
+                    echo '<ul>';
+                    echo '<li class="ximg"><img src="/www/upload/goods/' . $imgarr[$i] . '"></li>';
+                    echo '<li class="xtitle h4">' . $db[$i]['title'] . '</li>';
+                    echo '</ul></a>';
+                    echo '</div>';
+                    if ($mod % 4 == 0) {
+                        echo '</div><div class="xrow">';
+                    }
+                }
+                ?>
+            </div>
+            <div class="page">
+                <?php echo $db->render(); ?>
+            </div>
+        </div>
+    </div>
+</list>

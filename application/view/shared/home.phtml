@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=yes, initial-scale=0.3, maximum-scale=1, minimum-scale=0.1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{$title}</title>
+    {include file="www/resfile/css.html" /}
+    <link rel="stylesheet" type="text/css" href="/www/resfile/css/animate.css">
+    <!--if lt IE 9-->
+    <script type="text/javascript" src="/www/resfile/scripts/html5.js"></script>
+    <script type="text/javascript" src="/www/resfile/scripts/respond.min.js"></script>
+    <!--endif-->
+    {include file="www/resfile/js.html" /}
+    <style>
+
+
+        html, body, input {
+            font-size: 14px !important;
+            font-family: "Century Gothic", "Microsoft yahei" !important;
+            color: #e1e1e1 !important;
+        }
+
+        body {
+            background: #171717 !important;
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        header {
+            display: block;
+        }
+
+        page {
+            width: 100%;
+            min-width: 900px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .topbar {
+            padding: 0;
+            background: #000;
+            position: relative;
+            z-index: 15;
+        }
+
+        .topbar ul.social-network {
+            display: flex;
+            flex-flow: row;
+            justify-content: flex-start;
+        }
+
+        .topbar ul.social-network li {
+
+        }
+
+        .topbar ul.social-network li a {
+            text-decoration: none;
+            color: #c8c8c8;
+            display: block;
+            padding: 10px;
+            margin-right: 15px;
+        }
+
+        .topbar ul.social-network li a:hover {
+            color: #FFFFFF;
+        }
+
+        .topbar ul.info {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .topbar ul.info li {
+
+        }
+
+        .topbar ul.info li span {
+            padding: 10px;
+            color: #c8c8c8;
+            display: block;
+        }
+
+        header .navbar {
+            border: 0 !important;
+        }
+
+        header .navbar-default .navbar-collapse {
+            display: flex !important;
+            flex-flow: row !important;
+            flex-wrap: nowrap !important;
+            justify-content: flex-end !important;
+        }
+
+        header .navbar-default {
+            background: #171717;
+            /*position: absolute;*/
+            width: 100%;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.23);
+        }
+
+        header .navbar-default .waves-effect {
+            position: relative;
+            cursor: pointer;
+            display: inline-block;
+            overflow: hidden;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            vertical-align: middle;
+            z-index: 1;
+            will-change: opacity, transform;
+            transition: .3s ease-out;
+        }
+
+        header ul.nav li.active {
+            padding: 0;
+            margin: 0;
+        }
+
+        header ul.nav li.active a {
+            background: #000 !important;
+            color: #FFFFFF !important;
+        }
+
+        header ul.nav li a {
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #676767;
+            text-shadow: none;
+            border: 1px solid rgba(255, 255, 255, 0) !important;
+            line-height: 48px;
+            margin-left: 5px;
+        }
+
+        header ul.nav li a:hover {
+            color: #FFFFFF !important;
+            background: #000 !important;
+        }
+
+        header ul.nav li a:focus {
+            color: #FFFFFF;
+            background: #000000 !important;
+        }
+
+        header ul.nav .dropdown-toggle {
+            background: #171717 !important;
+        }
+
+        header ul.nav .dropdown-menu {
+            background: #000 !important;
+        }
+
+        footer {
+            padding: 50px 0 30px 0;
+            color: #f8f8f8;
+            background: #1e1e1e;
+            position: relative;
+            z-index: 15;
+        }
+
+        footer .container .row {
+            margin-left: -0.75rem;
+            margin-right: -0.75rem;
+        }
+
+        footer .widget {
+            color: #858585;
+        }
+
+        footer .widget p {
+            margin-bottom: 10px;
+        }
+
+        footer .widget ul.link-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        footer .widget ul.link-list li {
+            margin: 0;
+            padding: 2px 0 2px 0;
+            list-style: none;
+        }
+
+        footer .widget ul.link-list li a {
+            color: #8C8C8C;
+            text-decoration: none;
+        }
+
+        footer .widget ul.link-list li a:hover {
+            color: #03d6b6;
+        }
+
+        footer .widgetheading {
+            position: relative;
+            width: 100%;
+            padding: 0;
+            font-weight: bold;
+            color: #FFFFFF;
+        }
+
+        footer address {
+            line-height: 1.6em;
+            color: #797979;
+            margin-bottom: 20px;
+            font-style: normal;
+            line-height: 1.428571429;
+        }
+
+        /*---------------------------------------------------------------------------*/
+        content {
+            position: relative;
+        }
+
+        section#inner-headline {
+            background: #000;
+            position: relative;
+            color: #1891EC;
+            z-index: 22;
+            padding: 50px 0 50px 0;
+            margin-top: -20px;
+        }
+
+        section#inner-headline .pageTitle {
+            font-size: 26px;
+            color: #6bdcff;
+            padding: 5px 0;
+            display: block;
+            text-align: center;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+<page>
+    <header class="topbar">
+        <div class="container">
+            <div class="row">
+                <!-- social icon-->
+                <div class="col-sm-3">
+                </div>
+                <div class="col-sm-9">
+                    <div class="row">
+                        <ul class="info">
+                            <li style="padding-bottom: 5px; padding-top: 5px;">
+                                <span style="border-radius: 3px; background-color: #565656; color: #FFFFFF">中文</span>
+                            </li>
+                            <li style="padding-bottom: 5px; padding-top: 5px;">
+                                <a href="https://en.xvxchannel.com" target="_self" style="padding: 10px; color: #FFFFFF; text-decoration: none; display: block; border-radius: 3px;">English</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- info -->
+            </div>
+        </div>
+    </header>
+    <header class="navs">
+        <div class="navbar navbar-default navbar-static-top">
+            <div class="container" style="width:1270px">
+                <div class="navbar-header">
+                    <a href="/"><img src="/www/image/logo.jpg"></a>
+                </div>
+                <div class="navbar-collapse collapse ">
+                    <ul class="nav navbar-nav">
+                        <?php
+                        $urlname = array(
+                            '首页',
+                            '新品发布',
+                            '产品',
+                            '服务/支持',
+                            '联系我们',
+                            '关于',
+                        );
+
+                        $url = array(
+                            '/',
+                            '/home/main/newlaunch',
+                            '/home/main/products',
+                            '/home/main/download',
+                            '/home/main/support',
+                            '/home/main/aboutus'
+			    //'https://en.xvxchannel.com'
+                        );
+
+                        $menu = isset($menu) ? $menu : 0;
+
+                        for ($i = 0; $i < count($urlname); $i++) {
+                            if ($i + 1 == $menu) {
+                                if ($i + 1 == 3) {
+                                    echo '<li class="active dropdown">';
+                                } else {
+                                    echo '<li class="active">';
+                                }
+                            } else {
+                                echo '<li>';
+                            }
+                            if ($i + 1 != 3) {
+				if($urlname[$i] == 'Global Store'){
+				echo '<a class="waves-effect waves-dark" style="color:#ffffff" href="' . $url[$i] . '">' . $urlname[$i] . '</a></li>';
+				}else{
+                                echo '<a class="waves-effect waves-dark" href="' . $url[$i] . '">' . $urlname[$i] . '</a></li>';
+				}
+                            } else {
+                                echo '<a href="#" data-toggle="dropdown" class="dropdown-toggle waves-effect waves-dark">' . $urlname[$i] . '<b class="caret"></b></a>';
+                                echo '<ul class="dropdown-menu">';
+                                echo '<li><a class="waves-effect waves-dark" href="/home/main/products.html?id=1">键盘</a></li>';
+                                echo '<li><a class="waves-effect waves-dark" href="/home/main/products.html?id=2">键盘帽</a></li>';
+                                echo '<li><a class="waves-effect waves-dark" href="/home/main/products.html?id=3">周边产品</a></li>';
+                                echo '</ul></li>';
+                            }
+                        }
+                        ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <content>
+        {__CONTENT__}
+    </content>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="widget">
+                        <h5 class="widgetheading">联系我们</h5>
+                        <address>
+                            中国,湖南省邵东市宋家塘街道<br>
+                            昭阳大道1001号
+                        </address>
+                        <p>
+                            <i class="icon-envelope-alt"></i> <a href="mailto:likecosmo@outlook.com">likecosmo@outlook.com</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="widget">
+                        <h5 class="widgetheading">快速链接</h5>
+                        <ul class="link-list">
+                            <li><a href="/home/main/aboutus">关于</a></li>
+                            <li><a href="#">隐私政策</a></li>
+                            <li><a href="/home/main/download">服务/支持</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="widget">
+                        <h5 class="widgetheading">新品发布</h5>
+                        <ul class="link-list">
+                            <?php
+                            $db1 = \think\Db::table('xnewgoods')
+                                ->order('id', 'desc')
+                                ->limit(3)
+                                ->select();
+                            foreach ($db1 as $r) {
+                                echo '<li>';
+                                echo '<a href="home/main/newlaunchtxt.html?id=' . $r['id'] . '">';
+                                echo $r['title'];
+                                echo '</a>';
+                                echo '</li>';
+                            }
+                            ?>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="widget">
+                        <h5 class="widgetheading">产品</h5>
+                        <ul class="link-list">
+                            <?php
+                            $db1 = \think\Db::table('xproducts')
+                                ->order('id', 'desc')
+                                ->limit(2)
+                                ->select();
+                            foreach ($db1 as $r) {
+                                echo '<li>';
+                                echo '<a href="/home/main/product.html?id=' . $r['id'] . '">';
+                                echo $r['title'];
+                                echo '</a>';
+                                echo '</li>';
+                            }
+                            ?>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</page>
+</body>
+</html>
